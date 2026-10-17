@@ -1,0 +1,186 @@
+.heroContainer {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.glowBg {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(79, 143, 247, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.textBackground {
+  position: absolute;
+  top: 57.5%;
+  left: 50%;
+  z-index: 2;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  line-height: 0.85;
+  user-select: none;
+  pointer-events: none;
+}
+
+.titleLine {
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: rgba(220, 235, 255, 0.75);
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: linear-gradient(
+    90deg,
+    rgba(155, 195, 255, 0.2) 35%,
+    rgba(105, 170, 255, 0.95) 49%,
+    rgba(255, 255, 255, 0.95) 51%,
+    rgba(155, 195, 255, 0.2) 65%
+  );
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 32px rgba(79, 143, 247, 0.12);
+  animation-duration: 12s, 6.5s;
+  animation-timing-function: ease-in-out, linear;
+  animation-iteration-count: infinite;
+}
+
+.titleLine:first-child {
+  font-size: clamp(3.5rem, 11vw, 9rem);
+  animation-name: textReveal, sweepRightToLeft;
+}
+
+.titleLine:last-child {
+  font-size: clamp(1.8rem, 7vw, 7rem);
+  animation-name: textReveal, sweepLeftToRight;
+  animation-delay: 2.4s, 0s;
+}
+
+.imageWrapper {
+  position: absolute;
+  bottom: 0;
+  width: min(100%, 520px);
+  height: 85vh;
+  z-index: 3;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
+  animation: riseIn 1.2s cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.imageMotion,
+.imageFade {
+  position: absolute;
+  inset: 0;
+}
+
+.imageMotion {
+  animation: float 4.5s ease-in-out 1.2s infinite;
+}
+
+@supports (animation-timeline: scroll()) {
+  .imageFade {
+    animation: fadeOnScroll linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0vh 100vh;
+  }
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes fadeOnScroll {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes textReveal {
+  0%, 8%, 94%, 100% {
+    opacity: 0;
+    text-shadow: 0 0 0 rgba(79, 143, 247, 0);
+  }
+
+  15%, 87% {
+    opacity: 1;
+    text-shadow: 0 0 36px rgba(79, 143, 247, 0.35);
+  }
+}
+
+@keyframes sweepRightToLeft {
+  from {
+    background-position: -100% 0;
+  }
+
+  to {
+    background-position: 100% 0;
+  }
+}
+
+@keyframes sweepLeftToRight {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -100% 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .titleLine:first-child {
+    font-size: clamp(3rem, 13vw, 6rem);
+  }
+
+  .titleLine:last-child {
+    font-size: clamp(1.5rem, 7.5vw, 3.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .titleLine,
+  .imageWrapper,
+  .imageMotion,
+  .imageFade {
+    animation: none;
+  }
+
+  .titleLine {
+    opacity: 1;
+    background-position: center;
+  }
+}
