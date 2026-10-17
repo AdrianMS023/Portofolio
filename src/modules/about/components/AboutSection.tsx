@@ -5,8 +5,7 @@ import styles from '../styles/AboutSection.module.css';
 
 const STATS_DATA = [
   { value: '2+', label: 'TAHUN PENGALAMAN' },
-  { value: '15+', label: 'PROYEK SELESAI' },
-  { value: '10+', label: 'CLIENT PUAS' },
+  { value: '10+', label: 'PROYEK SELESAI' },
 ];
 
 export const AboutSection = () => {
